@@ -27,6 +27,15 @@
   <p><font color="yellow">コードを下に入力して<b id=test>[テスト]</b>をクリック</font></p>
     <textarea id="htmlInput" rows="10" placeholder="<html> コードをここに入力"></textarea>
     <button onclick="renderIframe()">テスト</button>
+<div class="button-container">
+    <button class="shortcut-button" onclick="insertHtmlTag('html')">&lt;html&gt;</button>
+    <button class="shortcut-button" onclick="insertHtmlTag('head')">&lt;head&gt;</button>
+    <button class="shortcut-button" onclick="insertHtmlTag('body')">&lt;body&gt;</button>
+<button class="shortcut-button" onclick="insertHtmlTag('/html')">&lt;/html&gt;</button>
+<button class="shortcut-button" onclick="insertHtmlTag('/head')">&lt;/head&gt;</button>
+<button class="shortcut-button" onclick="insertHtmlTag('/body')">&lt;/body&gt;</button>
+    </div>
+
     <iframe id="outputIframe"></iframe>
 
     <script>
@@ -44,5 +53,17 @@
       // [テスト]をクリックしても関数を実行
       document.getElementById("test").addEventListener("click", test);
     </script>
+<script>
+function insertHtmlTag(tagName) {
+    const textarea = document.getElementById('htmlInput');
+    const caretPos = textarea.selectionStart;
+    const textBefore = textarea.value.substring(0, caretPos);
+    const textAfter = textarea.value.substring(caretPos);
+    textarea.value = textBefore + `<${tagName}>` + textAfter;
+    textarea.focus();
+    textarea.selectionStart = caretPos + tagName.length + 2;
+    textarea.selectionEnd = caretPos + tagName.length + 2;
+}
+</script>
 </body>
 </html>
